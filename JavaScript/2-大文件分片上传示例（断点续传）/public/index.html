@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>分片上传大文件</title>
+  </head>
+  <body>
+    <h1>分片上传大文件</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">上传</button>
+
+    <script>
+      function uploadFile() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        if (!file) {
+          alert("Please select a file.");
+          return;
+        }
+
+        const chunkSize = 1024 * 1024; // 1MB
+        const chunks = Math.ceil(file.size / chunkSize);
+        let currentChunk = 0;
+
+        const fileExtension = file.name.split(".").pop(); // 获取文件后缀名
+
+        function uploadChunk() {
+          const start = currentChunk * chunkSize;
+          const end = Math.min(start + chunkSize, file.size);
+          const chunk = file.slice(start, end);
+          const formData = new FormData();
+
+          formData.append("file", chunk);
+          formData.append("chunk", currentChunk);
+          formData.append("chunks", chunks);
+          formData.append("fileExtension", fileExtension); // 传递文件后缀名
+
+          fetch("/upload", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.text())
+            .then((data) => {
+              console.log(data);
+
+              currentChunk++;
+
+              if (currentChunk < chunks) {
+                uploadChunk();
+              } else {
+                alert("File uploaded successfully.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        }
+
+        uploadChunk();
+      }
+    </script>
+  </body>
+</html>
