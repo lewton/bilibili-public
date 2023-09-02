@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>使用 canvas 实现冒泡排序动画</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>使用 canvas 实现冒泡排序动画</h1>
+    <h3>
+      冒泡排序的核心思想是通过多次比较和交换相邻的元素，将较大（或较小）的元素逐渐“冒泡”到列表的一端，直到整个列表有序为止。
+    </h3>
+    <canvas id="bubbleSortCanvas" width="400" height="200"></canvas>
+    <button onclick="startSorting()">开始排序</button>
+    <div>
+      <h4>
+        冒泡排序是一种简单的排序算法，其原理可以用以下通俗易懂的方式描述：
+      </h4>
+      <ol>
+        <li>假设有一组乱序的数字排列在一个列表中。</li>
+        <li>冒泡排序会从列表的开头开始，依次比较相邻的两个数字。</li>
+        <li>
+          如果前面的数字比后面的数字大（升序排序），则交换它们的位置，这样较大的数字会“冒泡”到列表的末尾。
+        </li>
+        <li>
+          然后，继续比较下一对相邻数字，重复上述过程，直到整个列表中的所有数字都被排序为止。
+        </li>
+        <li>这个过程会重复多次，每次都会将最大的数字冒泡到列表的末尾。</li>
+        <li>
+          由于每次排序都会把一个最大的数字放在正确的位置，所以排序过程中会不断缩小要排序的范围。
+        </li>
+        <li>
+          最终，所有的数字都会按照从小到大（或从大到小，取决于排序方向）的顺序排列完成。
+        </li>
+      </ol>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("bubbleSortCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const arr = [6, 5, 3, 1, 8, 7, 2, 4];
+      const n = arr.length;
+
+      let i = 0;
+      let j = 0;
+
+      function drawArray() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const barWidth = canvas.width / n;
+        const barHeightUnit = canvas.height / Math.max(...arr);
+
+        for (let k = 0; k < n; k++) {
+          const x = k * barWidth;
+          const height = arr[k] * barHeightUnit;
+
+          // 绘制矩形
+          ctx.fillStyle = k === j || k === j + 1 ? "red" : "blue";
+          ctx.fillRect(x, canvas.height - height, barWidth - 2, height);
+
+          // 标记数字
+          ctx.fillStyle = "white";
+          ctx.font = "20px Arial";
+          ctx.fillText(
+            arr[k],
+            x + barWidth / 2 - 6,
+            canvas.height - height + 20
+          );
+        }
+      }
+
+      function bubbleSortStep() {
+        if (i < n - 1) {
+          if (j < n - i - 1) {
+            if (arr[j] > arr[j + 1]) {
+              const temp = arr[j];
+              arr[j] = arr[j + 1];
+              arr[j + 1] = temp;
+            }
+            j++;
+          } else {
+            i++;
+            j = 0;
+          }
+        } else {
+          // 排序完成
+          clearInterval(animationInterval);
+        }
+
+        drawArray();
+      }
+
+      let animationInterval;
+
+      function startSorting() {
+        i = 0;
+        j = 0;
+
+        // 设置动画间隔
+        animationInterval = setInterval(bubbleSortStep, 500); // 调整动画速度
+      }
+
+      drawArray();
+    </script>
+  </body>
+</html>

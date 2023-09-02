@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linked List Visualization</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <button onclick="addNode()">Add Node</button>
+    <button onclick="deleteNode()">Delete Node</button>
+    <button onclick="modifyNode()">Modify Node</button>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // 链表节点类
+      class Node {
+        constructor(data, x, y, color) {
+          this.data = data;
+          this.next = null;
+          this.x = x;
+          this.y = y;
+          this.width = 40;
+          this.height = 30;
+          this.color = color;
+        }
+
+        draw() {
+          ctx.fillStyle = this.color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+          ctx.fillStyle = "red";
+          ctx.font = "18px Arial";
+          ctx.fillText(this.data.toString(), this.x + 10, this.y + 20);
+        }
+      }
+
+      // 随机生成不同颜色
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      // 链表类
+      class LinkedList {
+        constructor() {
+          this.head = null;
+          this.nodeSpacing = 60; // 节点之间的水平距离
+        }
+
+        // 添加节点到链表
+        addNode(data) {
+          const newNode = new Node(data, 50, 100, getRandomColor());
+          if (!this.head) {
+            this.head = newNode;
+          } else {
+            let current = this.head;
+            while (current.next) {
+              current = current.next;
+            }
+            newNode.x = current.x + this.nodeSpacing;
+            newNode.color = getRandomColor();
+            current.next = newNode;
+          }
+        }
+
+        // 删除节点
+        deleteNode(data) {
+          if (!this.head) {
+            return;
+          }
+          if (this.head.data === data) {
+            this.head = this.head.next;
+          } else {
+            let current = this.head;
+            let prev = null;
+            while (current) {
+              if (current.data === data) {
+                prev.next = current.next;
+
+                this.adjustNodePositions(); // 调整节点位置
+                return;
+              }
+              prev = current;
+              current = current.next;
+            }
+          }
+        }
+
+        // 修改节点
+        modifyNodeByName(name) {
+          let current = this.head;
+          let found = false;
+          while (current) {
+            if (current.name === name) {
+              const newDataInput = +prompt(
+                "Enter new data for node " + name + ":"
+              );
+              if (newDataInput > 0) {
+                current.data = parseInt(newDataInput);
+                found = true;
+                break;
+              }
+            }
+            current = current.next;
+          }
+          if (!found) {
+            const continueModifying = confirm(
+              "Node with name " +
+                name +
+                " not found. Do you want to continue modifying?"
+            );
+            if (continueModifying) {
+              this.modifyNodeByName(name);
+            }
+          }
+        }
+
+        // 调整节点位置
+        adjustNodePositions() {
+          let current = this.head;
+          let x = 50;
+          while (current) {
+            current.x = x;
+            console.log(x);
+            x += this.nodeSpacing;
+            current = current.next;
+          }
+        }
+
+        // 绘制链表
+        drawLinkedList() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          let current = this.head;
+          while (current) {
+            current.draw();
+            current = current.next;
+          }
+
+          // 绘制连接线
+          current = this.head;
+          while (current && current.next) {
+            drawLine(
+              current.x + current.width,
+              current.y + current.height / 2,
+              current.next.x,
+              current.next.y + current.next.height / 2
+            );
+            current = current.next;
+          }
+        }
+      }
+
+      // 创建链表
+      const linkedList = new LinkedList();
+
+      // 创建动画
+      function animate() {
+        linkedList.drawLinkedList();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // 添加节点按钮点击事件
+      function addNode() {
+        const newData = prompt("Enter data for new node:");
+        if (newData !== null && newData !== "") {
+          linkedList.addNode(parseInt(newData));
+        }
+      }
+
+      // 删除节点按钮点击事件
+      function deleteNode() {
+        const dataToDelete = prompt("Enter data to delete:");
+        if (dataToDelete !== null && dataToDelete !== "") {
+          linkedList.deleteNode(parseInt(dataToDelete));
+        }
+      }
+
+      // 修改节点按钮点击事件
+      function modifyNode() {
+        const nodeNameToModify = prompt("Enter name of the node to modify:");
+        if (nodeNameToModify !== null && nodeNameToModify !== "") {
+          linkedList.modifyNodeByName(parseInt(nodeNameToModify));
+        }
+      }
+
+      // 绘制线条
+      function drawLine(x1, y1, x2, y2) {
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+    </script>
+  </body>
+</html>
