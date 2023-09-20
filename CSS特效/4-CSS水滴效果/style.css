@@ -45,10 +45,10 @@ body {
   content: "";
   position: absolute;
   top: 25px;
-  left: 35px;
+  left: 65px;
   background: #fff;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 57% 43% 37% 63% / 48% 37% 63% 52%;
 }
 
