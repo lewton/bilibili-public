@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>曲线导航菜单指示器</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="navigation">
       <ul>
-        <li class="list">
+        <li class="list active">
           <a href="#">
             <span class="icon">
               <ion-icon name="home-outline"></ion-icon>
@@ -47,6 +48,7 @@
             <span class="text">Settings</span>
           </a>
         </li>
+        <div class="indicator"></div>
       </ul>
     </div>
     <script
@@ -57,5 +59,13 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
+    <script>
+      const list = document.querySelectorAll(".list");
+      function activeLink() {
+        list.forEach((item) => item.classList.remove("active"));
+        this.classList.add("active");
+      }
+      list.forEach((item) => item.addEventListener("click", activeLink));
+    </script>
   </body>
 </html>
