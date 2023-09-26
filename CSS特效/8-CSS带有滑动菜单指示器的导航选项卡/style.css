@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #10202b;
+}
+
+.tabs input {
+  visibility: hidden;
+  display: none;
+}
+
+.buttons {
+  position: relative;
+  display: flex;
+  gap: 80px;
+  padding: 30px 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #182d3c;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.buttons label {
+  width: 20%;
+  font-size: 1.75em;
+  -webkit-text-stroke: 1px #fff;
+  color: transparent;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.buttons label:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
+}
+
+.tabs input:nth-child(1):checked ~ .buttons label:nth-child(1),
+.tabs input:nth-child(2):checked ~ .buttons label:nth-child(2),
+.tabs input:nth-child(3):checked ~ .buttons label:nth-child(3),
+.tabs input:nth-child(4):checked ~ .buttons label:nth-child(4),
+.tabs input:nth-child(5):checked ~ .buttons label:nth-child(5) {
+  color: #fff;
+  opacity: 1;
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff);
+}
+
+.underline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 20%;
+  height: 5px;
+  transition: 0.5s;
+}
+
+.underline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  border-radius: 4px;
+  height: 100%;
+  background-color: #fff;
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff)
+    drop-shadow(0 0 30px #fff) drop-shadow(0 0 50px #fff);
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  border-radius: 4px;
+  height: 100%;
+  background-color: #fff;
+  filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 20px #fff)
+    drop-shadow(0 0 30px #fff) drop-shadow(0 0 50px #fff) blur(5px);
+}
+
+.tabs input:nth-child(1):checked ~ .buttons .underline {
+  left: 0;
+}
+
+.tabs input:nth-child(2):checked ~ .buttons .underline {
+  left: 20%;
+}
+
+.tabs input:nth-child(3):checked ~ .buttons .underline {
+  left: 40%;
+}
+
+.tabs input:nth-child(4):checked ~ .buttons .underline {
+  left: 60%;
+}
+.tabs input:nth-child(5):checked ~ .buttons .underline {
+  left: 80%;
+}
