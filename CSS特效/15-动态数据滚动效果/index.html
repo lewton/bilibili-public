@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>动态数据滚动效果</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section>
+      <h2>Scroll To Reveal</h2>
+    </section>
+    <div class="container"></div>
+    <script>
+      for (let i = 0; i <= 60; i++) {
+        const box = document.createElement("div");
+        box.classList.add("box");
+        document.querySelector(".container").appendChild(box);
+      }
+
+      const randomColorBlock = document.querySelectorAll(".box");
+
+      function addColor() {
+        randomColorBlock.forEach((e) => {
+          e.style.background = randomColor();
+        });
+      }
+
+      function randomColor() {
+        const chars = "1234567890abcdef",
+          colorLength = 6;
+        let color = "";
+        for (let i = 1; i <= colorLength; i++) {
+          const rondomColors = Math.floor(Math.random() * chars.length);
+          color += chars.substring(rondomColors, rondomColors + 1);
+        }
+        return "#" + color;
+      }
+
+      addColor();
+
+      const boxes = document.querySelectorAll(".box");
+
+      function scrollTrigger() {
+        boxes.forEach((boxxx) => {
+          if (boxxx.offsetTop < window.scrollY) {
+            boxxx.classList.add("active");
+          } else {
+            boxxx.classList.remove("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", scrollTrigger);
+    </script>
+  </body>
+</html>
