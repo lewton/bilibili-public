@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS数据雨云效果</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="cloud">
+        <h2>Data Clouds Rain</h2>
+      </div>
+    </div>
+
+    <script>
+      const randomText = () => {
+        const text = "!@#$%^&*()_+",
+          letters = text[Math.floor(Math.random() * text.length)];
+        return letters;
+      };
+
+      const rain = () => {
+        const cloud = document.querySelector(".cloud"),
+          e = document.createElement("div");
+        e.classList.add("drop");
+        cloud.appendChild(e);
+        const left = Math.floor(Math.random() * 290),
+          size = Math.random() * 1.5,
+          duration = Math.random() * 1;
+
+        e.innerText = randomText();
+        e.style.left = left + "px";
+        e.style.fontSize = 0.5 + size + "em";
+        e.style.animationDuration = 1 + duration + "s";
+
+        setTimeout(() => {
+          cloud.removeChild(e);
+        }, 2000);
+      };
+
+      setInterval(() => {
+        rain();
+      }, 20);
+    </script>
+  </body>
+</html>
