@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:wght@300&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #252839;
+}
+
+ul {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+ul li {
+  position: relative;
+  list-style: none;
+}
+
+ul li a {
+  position: relative;
+  font-size: 3em;
+  text-decoration: none;
+  color: #fff2;
+  letter-spacing: 0.25em;
+  line-height: 1em;
+  text-transform: capitalize;
+}
+
+ul li a::before {
+  content: attr(data-text);
+  position: absolute;
+  color: var(--clr);
+  width: 0;
+  overflow: hidden;
+  border-right: 6px solid var(--clr);
+  transition: 1s;
+}
+
+ul li a:hover::before {
+  width: 100%;
+  filter: drop-shadow(0 0 25px var(--clr));
+}
+
+ul li a span {
+  position: relative;
+  animation: animateText linear infinite;
+}
+
+ul:hover li a span {
+  opacity: 0.15;
+  animation-play-state: paused;
+}
+
+@keyframes animateText {
+  0%,
+  20% {
+    color: #fff2;
+    filter: drop-shadow(0 0 0 var(--clr));
+  }
+
+  21.001%,
+  79.999% {
+    color: var(--clr);
+    filter: drop-shadow(0 0 25px var(--clr));
+  }
+
+  80%,
+  100% {
+    color: #fff2;
+    filter: drop-shadow(0 0 0 var(--clr));
+  }
+}
