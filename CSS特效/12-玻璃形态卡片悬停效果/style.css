@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #111;
+  transition: 0.5s;
+}
+
+body:has(.box[data-color="clr1"]:hover) {
+  background-color: #162527;
+}
+
+body:has(.box[data-color="clr2"]:hover) {
+  background-color: #202011;
+}
+
+body:has(.box[data-color="clr3"]:hover) {
+  background-color: #5b4510;
+}
+
+body:has(.box[data-color="clr4"]:hover) {
+  background-color: #611417;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.container .box {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.container .box .imgBx {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  border: 4px solid rgba(0, 0, 0, 0.2);
+}
+
+.container .box .imgBx img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.5s;
+  border-radius: 10px;
+}
+
+.container .box:hover .imgBx img {
+  opacity: 0.5;
+}
+
+.container .box .glass {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#fff2, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  scale: 0;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.container .box .glass::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.container .box:hover {
+  transform: rotate(-15deg);
+}
+
+.container .box:hover .glass {
+  transform: rotate(20deg);
+  scale: 1;
+  opacity: 1;
+}
+
+.container .box .glass h3 {
+  font-size: 1.25em;
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  line-height: 0.8em;
+}
+
+.container .box .glass h3 span {
+  font-weight: 400;
+  font-size: 0.5em;
+}
+
+.container .box ul {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.container .box ul a {
+  color: #fff8;
+  font-size: 1.25em;
+  scale: 0;
+  transition: 0.25s;
+  transition-delay: scale calc(0.2s * var(--i));
+}
+
+.container .box:hover ul a {
+  scale: 1;
+}
+
+.container .box ul a:hover {
+  color: #fff;
+}
