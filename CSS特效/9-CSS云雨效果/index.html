@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS云雨效果</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="cloud"></div>
+    </div>
+    <script>
+      function rain() {
+        const cloud = document.querySelector(".cloud"),
+          e = document.createElement("div"),
+          left = Math.floor(Math.random() * 310),
+          width = Math.random() * 5,
+          height = Math.random() * 50,
+          duration = Math.random() * 0.5;
+
+        e.classList.add("drop");
+        cloud.appendChild(e);
+        e.style.left = left + "px";
+        e.style.width = 0.5 + width + "px";
+        e.style.height = 0.5 + height + "px";
+        e.style.animationDuration = 1 + duration + "s";
+        setTimeout(() => {
+          cloud.removeChild(e);
+        }, 2000);
+      }
+
+      setInterval(() => {
+        rain();
+      }, 20);
+    </script>
+  </body>
+</html>
