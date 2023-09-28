@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>滚动页面菜单指示器导航</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#home" style="--clr: #f3218b" class="active">
+          <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
+          <span class="text">Home</span>
+        </a>
+        <a href="#profile" style="--clr: #2196f3">
+          <span class="icon"><ion-icon name="person-outline"></ion-icon></span>
+          <span class="text">Profile</span>
+        </a>
+        <a href="#message" style="--clr: #008a1b">
+          <span class="icon"
+            ><ion-icon name="chatbubble-outline"></ion-icon
+          ></span>
+          <span class="text">Message</span>
+        </a>
+        <a href="#photos" style="--clr: #dc1dff">
+          <span class="icon"><ion-icon name="camera-outline"></ion-icon></span>
+          <span class="text">Photos</span>
+        </a>
+        <a href="#settings" style="--clr: #d56f1d">
+          <span class="icon"
+            ><ion-icon name="settings-outline"></ion-icon
+          ></span>
+          <span class="text">Settings</span>
+        </a>
+        <div class="indicator"></div>
+      </nav>
+    </header>
+    <section id="home">Home</section>
+    <section id="profile">Profile</section>
+    <section id="message">Message</section>
+    <section id="photos">Photos</section>
+    <section id="settings">Settings</section>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script>
+      const sec = document.querySelectorAll("section"),
+        links = document.querySelectorAll("header nav a");
+
+      window.onscroll = () => {
+        sec.forEach((section) => {
+          const top = window.scrollY,
+            offset = section.offsetTop,
+            height = section.offsetHeight,
+            id = section.getAttribute("id");
+          if (top >= offset && top < offset + height) {
+            links.forEach((link) => {
+              link.classList.remove("active");
+              document
+                .querySelector("header nav a[href*=" + id + "]")
+                .classList.add("active");
+            });
+          }
+        });
+      };
+    </script>
+  </body>
+</html>

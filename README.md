@@ -92,6 +92,18 @@ https://gitee.com/jiangxiaobo/bilibili-public
 
 【CSS特效：卡片悬停特效（内附源代码参考）】 https://www.bilibili.com/video/BV1Yy4y1F7th/?share_source=copy_web&vd_source=eba83a864224092f826e096825908ace
 
+### 14-菜单文字动画效果
+
+<img src="./assets/images/73a9a8ce7e63ca6136241a59d1011102181ef0ea.jpg" alt="Alt" style="zoom:25%;" />
+
+【CSS特效：菜单文字动画效果（内附源代码参考）】 https://www.bilibili.com/video/BV1Sz4y137BG/?share_source=copy_web&vd_source=eba83a864224092f826e096825908ace
+
+### 15-动态数据滚动效果
+
+<img src="./assets/images/53ba6ccf345b4b26e38bd248755efedb146afedb.jpg" alt="Alt" style="zoom:25%;" />
+
+【CSS特效：动态数据滚动效果（内附源代码参考）】 https://www.bilibili.com/video/BV1cV411w7Ew/?share_source=copy_web&vd_source=eba83a864224092f826e096825908ace
+
 ## JavaScript
 
 [传送门1](https://github.com/lewton/bilibili-public/tree/main/JavaScript)
