@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS海报圆圈动画</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="stage">
+      <div id="rotate">
+        <div id="ring-1" class="ring"></div>
+        <div id="ring-2" class="ring"></div>
+        <div id="ring-3" class="ring"></div>
+      </div>
+    </div>
+    <script>
+      const POSTERS_PER_ROW = 12;
+      const RING_RADIUS = 200;
+
+      function setup_posters(row) {
+        const posterAngle = 360 / POSTERS_PER_ROW;
+        for (let i = 0; i < POSTERS_PER_ROW; i++) {
+          const poster = document.createElement("div");
+          poster.className = "poster";
+          // 计算并分配海报的变换值
+          const transform = `rotateY(${
+            posterAngle * i
+          }deg) translateZ(${RING_RADIUS}px)`;
+          poster.style.transform = transform;
+          const content = poster.appendChild(document.createElement("p"));
+          content.textContent = i;
+          row.appendChild(poster);
+        }
+      }
+
+      function init() {
+        setup_posters(document.getElementById("ring-1"));
+        setup_posters(document.getElementById("ring-2"));
+        setup_posters(document.getElementById("ring-3"));
+      }
+
+      window.addEventListener("load", init, false);
+    </script>
+  </body>
+</html>
