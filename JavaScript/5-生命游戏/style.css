@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#grid-container {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px auto 20px;
+  cursor: pointer;
+}
+
+/* 默认细胞 */
+.cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+/* 激活细胞 */
+.alive {
+  background-color: #5bbe5b;
+  border-color: #0b6c0b;
+}
+
+/* 死亡细胞 */
+.dead {
+  background-color: white;
+  border-color: #b1b1b1;
+}
+
+.actions {
+  text-align: center;
+}

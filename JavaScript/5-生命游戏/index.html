@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- 
+      生命游戏规则：
+      如果一个活细胞周围有2或3个活细胞，它将继续存活。
+      如果一个活细胞周围有少于2个活细胞，它会因孤独而死亡。
+      如果一个活细胞周围有超过3个活细胞，它会因拥挤而死亡。
+      如果一个死细胞周围有恰好3个活细胞，它将复活。
+    -->
     <div id="grid-container"></div>
     <div class="actions">
       <button onclick="startGame()">开始游戏</button>
