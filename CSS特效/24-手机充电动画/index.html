@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>手机充电动画</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="number">66.6%</div>
+      <div class="contrast">
+        <div class="circle"></div>
+        <ul id="bubbles" class="bubbles"></ul>
+      </div>
+    </div>
+    <script>
+      const bubbles = document.getElementById("bubbles");
+      for (let i = 0; i < 15; i++) {
+        const bubble = document.createElement("li");
+        const width = `${15 + 15 * Math.random()}px`;
+        const left = `${15 + 70 * Math.random()}px`;
+        const duration = `${3 + 6 * Math.random()}s`;
+        const delay = `${(5000 * Math.random()) / 1000}s`;
+        bubble.style.width = width;
+        bubble.style.height = width;
+        bubble.style.left = left;
+        bubble.style.animation = `moveToTop ${duration} ease-in-out ${delay} infinite`;
+        bubbles.appendChild(bubble);
+      }
+    </script>
+  </body>
+</html>
