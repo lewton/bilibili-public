@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>蜡烛火焰效果</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="candle">
+      <div class="candle-body"></div>
+      <div class="fire-box">
+        <div id="fire" class="fire"></div>
+      </div>
+    </div>
+    <script>
+      const fire = document.getElementById("fire");
+      for (let i = 0; i < 200; i++) {
+        const ball = document.createElement("div");
+        const width = `${50 * Math.random()}px`;
+        const left = `${70 * Math.random() - 55}px`;
+        const delay = `${(3000 * Math.random()) / 1000}s`;
+        ball.className = "ball";
+        ball.style.width = width;
+        ball.style.height = width;
+        ball.style.left = left;
+        ball.style.animation = `moveToTop 1s linear ${delay} infinite`;
+        fire.appendChild(ball);
+      }
+    </script>
+  </body>
+</html>
