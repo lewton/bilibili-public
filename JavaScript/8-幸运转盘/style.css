@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ccc;
+  background-color: #333;
 }
 
 .container {
@@ -42,7 +42,7 @@ body {
   left: 50%;
   transform: translate(-50%, -90%);
   background-color: #fff;
-  clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
+  clip-path: polygon(50% 0, 15% 100%, 85% 100%);
 }
 
 .container .spin::after {
