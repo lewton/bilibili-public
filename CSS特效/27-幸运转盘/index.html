@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>制作幸运旋转盘游戏</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="spin"></div>
+      <div class="wheel">
+        <div class="number" style="--i: 1; --color: #db7093">
+          <span>100</span>
+        </div>
+        <div class="number" style="--i: 2; --color: #20b2aa">
+          <span>1</span>
+        </div>
+        <div class="number" style="--i: 3; --color: #b63e92">
+          <span>50</span>
+        </div>
+        <div class="number" style="--i: 4; --color: #daa520">
+          <span>0</span>
+        </div>
+        <div class="number" style="--i: 5; --color: #ff340f">
+          <span>1000</span>
+        </div>
+        <div class="number" style="--i: 6; --color: #ff7f50">
+          <span>10</span>
+        </div>
+        <div class="number" style="--i: 7; --color: #3cb371">
+          <span>5</span>
+        </div>
+        <div class="number" style="--i: 8; --color: #4169e1">
+          <span>20</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      const wheel = document.querySelector(".wheel"),
+        spin = document.querySelector(".spin");
+      let value = Math.ceil(Math.random() * 3600);
+
+      spin.onclick = function () {
+        wheel.style.transform = `rotate(${value}deg)`;
+        value += Math.ceil(Math.random() * 3600);
+      };
+    </script>
+  </body>
+</html>
