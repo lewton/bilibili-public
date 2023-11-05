@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pic-parent {
+  width: 498px;
+  height: 410px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 0 0 1px #999, -2px 2px 3px rgba(0, 0, 0, 0.2);
+  background-image: url(1.png);
+  background-size: cover;
+}
+
+.pic-child {
+  position: absolute;
+  height: 410px;
+  top: 0;
+  left: 0;
+  min-width: 0;
+  max-width: 498px;
+  background-image: url(2.png);
+  background-size: cover;
+}
+
+.pic-child::before {
+  content: "↔";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  color: white;
+  top: 0;
+  right: 0;
+  line-height: 410px;
+}
+
+.resize-element {
+  position: relative;
+  top: 50%;
+  left: 0;
+  height: 15px;
+  max-width: 498px;
+  min-width: 15px;
+  width: 0;
+  opacity: 0;
+  resize: horizontal;
+  overflow: scroll;
+  cursor: move;
+  transform: scaleY(35);
+  transform-origin: center center;
+}
