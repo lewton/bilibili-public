@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue3 中 watchEffect异步问题</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>修改 beforeData：<input type="text" v-model="beforeData" /></div>
+      <hr />
+      <div>修改 afterData：<input type="text" v-model="afterData" /></div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const { createApp, ref, watchEffect } = Vue;
+
+      createApp({
+        setup() {
+          const beforeData = ref("beforeData");
+          const afterData = ref("afterData");
+
+          // 必须第一个 await 前面的依赖才可以被
+          // watchEffect 异步函数所搜集
+          watchEffect(async () => {
+            console.log(beforeData.value);
+            const response = await fetch("/");
+            console.log(afterData.value);
+            console.log(response);
+            console.log("--- 分割线 ---");
+          });
+          return {
+            beforeData,
+            afterData,
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
