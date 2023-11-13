@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>CSS 技巧 - 高度过渡问题</title>
+    <style>
+      .box {
+        overflow: hidden;
+        background-color: green;
+        color: white;
+      }
+
+      .wrap {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        transition: grid-template-rows 1s linear;
+      }
+
+      .wrap.show {
+        grid-template-rows: 1fr;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button>切换</button>
+    </div>
+    <div class="wrap">
+      <div class="box">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
+        voluptas, quam, quisquam at, id eligendi esse recusandae quidem officiis
+        totam suscipit. Quis enim facere nihil illo sed. Animi, est dicta!
+      </div>
+    </div>
+    <script>
+      const btn = document.querySelector("button");
+      const wrap = document.querySelector(".wrap");
+      btn.addEventListener("click", () => {
+        wrap.classList.toggle("show");
+      });
+    </script>
+  </body>
+</html>
