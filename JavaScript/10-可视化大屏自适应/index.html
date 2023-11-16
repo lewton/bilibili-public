@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>可视化大屏自适应</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        background-color: red;
+        transform-origin: left top;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">1651651</div>
+    <!-- (1920, 1080, 1) -->
+    <!-- innerWidth < innerHeight * (1920 / 1080) -> 以宽度为准 width: innerWidth, height: innerWidth * 1080 / 1920, 比例 innerWidth / 1920, (innerWidth, innerWidth * 1080 / 1920, innerWidth / 1920) -->
+    <!-- innerWidth >= innerHeight * (1920 / 1080) -> 以高度为准 height: innerHeight, width: innerHeight * 1920 / 1080, 比例 innerHeight / 1080, (innerHeight * 1920 / 1080, innerHeight, innerHeight / 1080) -->
+    <script>
+      function change(selector, setWidth = 1920, setHeight = 1080) {
+        const $ = document.querySelector(selector);
+        const { innerWidth, innerHeight } = window;
+        const ww = innerWidth / setWidth;
+        const wh = innerHeight / setHeight;
+        // 如果当前窗口宽度小于规定比例，则以宽度比例为准，反之以高度为准
+        const scale = ww < wh ? ww : wh;
+
+        Object.assign($.style, {
+          position: "fixed",
+          left: "50%",
+          top: "50%",
+          width: `${setWidth}px`,
+          height: `${setHeight}px`,
+          transform: `scale(${scale}) translate(-50%, -50%)`,
+        });
+      }
+
+      const resize = function () {
+        change(".container");
+      };
+
+      resize();
+      window.onresize = resize;
+    </script>
+  </body>
+</html>
