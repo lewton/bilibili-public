@@ -10,16 +10,13 @@
         box-sizing: border-box;
       }
       .container {
-        position: fixed;
-        left: 50%;
-        top: 50%;
-        background-color: red;
-        transform-origin: left top;
+        font-size: 50px;
+        background-color: #ccc;
       }
     </style>
   </head>
   <body>
-    <div class="container">1651651</div>
+    <div class="container">编程段子</div>
     <!-- (1920, 1080, 1) -->
     <!-- innerWidth < innerHeight * (1920 / 1080) -> 以宽度为准 width: innerWidth, height: innerWidth * 1080 / 1920, 比例 innerWidth / 1920, (innerWidth, innerWidth * 1080 / 1920, innerWidth / 1920) -->
     <!-- innerWidth >= innerHeight * (1920 / 1080) -> 以高度为准 height: innerHeight, width: innerHeight * 1920 / 1080, 比例 innerHeight / 1080, (innerHeight * 1920 / 1080, innerHeight, innerHeight / 1080) -->
@@ -39,6 +36,7 @@
           width: `${setWidth}px`,
           height: `${setHeight}px`,
           transform: `scale(${scale}) translate(-50%, -50%)`,
+          transformOrigin: "left top",
         });
       }
 
