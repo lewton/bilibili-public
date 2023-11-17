@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>不定高虚拟滚动</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        position: relative;
+        width: 200px;
+        height: 400px;
+        overflow: auto;
+      }
+
+      .item {
+        border: 1px solid;
+      }
+
+      .get-height {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(255, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <ul class="list"></ul>
+      </div>
+    </div>
+    <div class="container">
+      <ul class="get-height"></ul>
+    </div>
+
+    <script>
+      const container = document.querySelector(".container");
+      const wrapper = document.querySelector(".wrapper");
+      let list = document.querySelector(".list");
+      let getHeightList = document.querySelector(".get-height");
+      let pageNum = 1;
+      const pageSize = 20;
+      const totalHeight = parseInt(getComputedStyle(container).height);
+      // 假定每个item的高度为 20，这个值尽量小点，可以多加载，但不能少，防止渲染不全
+      const itemHeight = 20;
+      const listDoms = [];
+      const renderCount = Math.ceil(totalHeight / itemHeight);
+
+      function getItems() {
+        for (let i = 0; i < pageSize; i++) {
+          const li = document.createElement("li");
+          li.innerHTML =
+            "sdf<br>sh<br>dfvjwe<br>porwe<br>nvk<br>@213#<br>#！@……&…<br>…#！@<br>&……sdf<br>sh<br>dfvjwe<br>porwe<br>nvk<br>@213#<br>#！@……&…<br>…#！@<br>&……".slice(
+              0,
+              Math.floor(Math.random() * 50)
+            );
+          li.classList.add("item");
+          // li.style.height = `${itemHeight}px`;
+          li.dataset.height = `${itemHeight}px`;
+          listDoms.push(li);
+          getHeightList.appendChild(li);
+        }
+        console.log(getHeightList.parentNode.scrollHeight);
+        // const height = listDoms.reduce((h, li) => {
+        //   return h + parseInt(li.dataset.height);
+        // }, 0);
+        // wrapper.style.height = `${height}px`;
+      }
+
+      function scroll() {
+        // 计算截取片段，条件前后多渲染 2 个(相当于缓冲2个)
+        let startIndex = Math.floor(container.scrollTop / itemHeight) - 2;
+        if (startIndex < 0) {
+          startIndex = 0;
+        }
+
+        let endIndex = startIndex + renderCount + 2;
+        if (endIndex > listDoms.length - 1) {
+          endIndex = listDoms.length - 1;
+        }
+        // 只拷贝 ul.list 结构，没有后代
+        const onlyList = list.cloneNode();
+        onlyList.style.transform = `translateY(${startIndex * itemHeight}px)`;
+        listDoms
+          // slice 截取不包含最后一个索引
+          .slice(startIndex, endIndex + 1)
+          .forEach((li) => onlyList.appendChild(li));
+        list.parentNode.replaceChild(onlyList, list);
+        onlyList.dataset.startIndex = startIndex;
+        onlyList.dataset.endIndex = endIndex;
+        list = onlyList;
+      }
+
+      getItems();
+      // scroll();
+
+      let timer;
+      container.onscroll = function () {
+        console.log("loading...");
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
+          scroll();
+
+          console.log("end...");
+          if (list.dataset.endIndex >= pageNum * pageSize - 1) {
+            console.log("load more");
+            pageNum++;
+            // load more
+            getItems();
+          }
+        }, 50);
+      };
+
+      // 问题：如果滚动内容非常多，快速滚动条，会出现空白问题
+      // 可以loading...的地方加上骨架屏
+      // 问题2：考虑不定高的虚拟列表
+      // 不定高度的虚拟列表，我的想法是，让数据比如加载20条，高度 h1 已经已知了，滑倒底部，然后再加载20条，高度 h1 + h2，依次类推，这个每次新增的高度作为滚动的高度，滚动会越来越大，通过计算得出对应的renderlist
+    </script>
+  </body>
+</html>

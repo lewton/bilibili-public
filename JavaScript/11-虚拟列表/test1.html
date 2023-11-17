@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>定高虚拟滚动</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        position: relative;
+        width: 200px;
+        height: 400px;
+        overflow: auto;
+      }
+
+      .item {
+        border: 1px solid;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="wrapper">
+        <ul class="list"></ul>
+      </div>
+    </div>
+
+    <script>
+      const container = document.querySelector(".container");
+      const wrapper = document.querySelector(".wrapper");
+      let list = document.querySelector(".list");
+      let pageNum = 1;
+      const pageSize = 20;
+      const totalHeight = parseInt(getComputedStyle(container).height);
+      const itemHeight = 100;
+      const listDoms = [];
+      const renderCount = Math.ceil(totalHeight / itemHeight);
+
+      function getItems() {
+        for (let i = 0; i < pageSize; i++) {
+          const li = document.createElement("li");
+          li.innerText = `${(pageNum - 1) * pageSize + i}`;
+          li.classList.add("item");
+          li.style.height = `${itemHeight}px`;
+          listDoms.push(li);
+        }
+        wrapper.style.height = `${pageNum * pageSize * itemHeight}px`;
+      }
+
+      function scroll() {
+        // 计算截取片段，条件前后多渲染 2 个(相当于缓冲2个)
+        let startIndex = Math.floor(container.scrollTop / itemHeight) - 2;
+        if (startIndex < 0) {
+          startIndex = 0;
+        }
+
+        let endIndex = startIndex + renderCount + 2;
+        if (endIndex > listDoms.length - 1) {
+          endIndex = listDoms.length - 1;
+        }
+        // 只拷贝 ul.list 结构，没有后代
+        const onlyList = list.cloneNode();
+        onlyList.style.transform = `translateY(${startIndex * itemHeight}px)`;
+        listDoms
+          // slice 截取不包含最后一个索引
+          .slice(startIndex, endIndex + 1)
+          .forEach((li) => onlyList.appendChild(li));
+        list.parentNode.replaceChild(onlyList, list);
+        onlyList.dataset.startIndex = startIndex;
+        onlyList.dataset.endIndex = endIndex;
+        list = onlyList;
+      }
+
+      getItems();
+      scroll();
+
+      let timer;
+      container.onscroll = function () {
+        console.log("loading...");
+        timer && clearTimeout(timer);
+        timer = setTimeout(() => {
+          scroll();
+
+          console.log("end...");
+          if (list.dataset.endIndex >= pageNum * pageSize - 1) {
+            console.log("load more");
+            pageNum++;
+            // load more
+            getItems();
+          }
+        }, 50);
+      };
+
+      // 问题：如果滚动内容非常多，快速滚动条，会出现空白问题
+      // 可以loading...的地方加上骨架屏
+    </script>
+  </body>
+</html>
