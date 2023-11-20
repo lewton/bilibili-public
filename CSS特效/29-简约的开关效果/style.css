@@ -9,40 +9,44 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e8e1d6;
+  background-color: #e8e8e8;
 }
 
 .toggle-wrapper {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 24px;
-  padding: 6px;
-  background-image: linear-gradient(to bottom, #d0c4b8, #f5ece5);
+  position: relative;
+  border-radius: 0.5em;
+  padding: 0.125em;
+  background-image: linear-gradient(to bottom, #d5d5d5, #e8e8e8);
   box-shadow: 0 1px 1px rgb(255 255 255 / 0.6);
+  font-size: 1.5em;
 }
 
 .toggle-checkbox {
+  appearance: none;
   position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
   z-index: 1;
   border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  /* fix em sizing */
+  font: inherit;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .toggle-container {
-  position: relative;
   display: flex;
   align-items: center;
-  border-radius: 18px;
-  width: 144px;
-  height: 72px;
-  background-color: #e1dacd;
-  box-shadow: inset 0 0 3px 6px rgb(255 255 255 / 0.2),
-    inset 0 3px 6px rgb(0 0 0 / 0.4);
+  position: relative;
+  border-radius: 0.375em;
+  width: 3em;
+  height: 1.5em;
+  background-color: #e8e8e8;
+  box-shadow: inset 0 0 0.0625em 0.125em rgb(255 255 255 / 0.2),
+    inset 0 0.0625em 0.125em rgb(0 0 0 / 0.4);
   transition: background-color 0.4s linear;
 }
 
@@ -55,33 +59,33 @@ body {
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 3px;
-  border-radius: 15px;
-  width: 66px;
-  height: 66px;
-  background-color: #e4ddcf;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px -3px 3px 6px inset,
-    rgba(0, 0, 0, 0.2) 0px -6px 3px 0px inset,
-    rgba(255, 255, 255, 0.3) 0px 9px 3px 0px inset,
-    rgba(0, 0, 0, 0.5) 0px 6px 6px 0px;
+  left: 0.0625em;
+  border-radius: 0.3125em;
+  width: 1.375em;
+  height: 1.375em;
+  background-color: #e8e8e8;
+  box-shadow: inset 0 -0.0625em 0.0625em 0.125em rgb(0 0 0 / 0.1),
+    inset 0 -0.125em 0.0625em rgb(0 0 0 / 0.2),
+    inset 0 0.1875em 0.0625em rgb(255 255 255 / 0.3),
+    0 0.125em 0.125em rgb(0 0 0 / 0.5);
   transition: left 0.4s;
 }
 
 .toggle-checkbox:checked + .toggle-container > .toggle-button {
-  left: 75px;
+  left: 1.5625em;
 }
 
 .toggle-button-circles-container {
   display: grid;
   grid-template-columns: repeat(3, min-content);
-  gap: 6px;
+  gap: 0.125em;
   position: absolute;
   margin: 0 auto;
 }
 
 .toggle-button-circle {
   border-radius: 50%;
-  width: 6px;
-  height: 6px;
-  background-image: radial-gradient(circle at 50% 0, #f6f0e9, #bebcb0);
+  width: 0.125em;
+  height: 0.125em;
+  background-image: radial-gradient(circle at 50% 0, #f5f5f5, #c4c4c4);
 }
