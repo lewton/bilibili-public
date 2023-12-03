@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #212121;
+}
+
+#checkbox {
+  display: none;
+}
+
+.switch {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  background-color: rgb(99, 99, 99);
+  border-radius: 50%;
+  z-index: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(126, 126, 126);
+  box-shadow: 0px 0px 3px rgb(2, 2, 2) inset;
+}
+
+#checkbox:checked + .switch {
+  box-shadow: 0px 0px 1px rgb(151, 243, 255) inset,
+    0px 0px 2px rgb(151, 243, 255) inset, 0px 0px 10px rgb(151, 243, 255) inset,
+    0px 0px 40px rgb(151, 243, 255), 0px 0px 100px rgb(151, 243, 255),
+    0px 0px 5px rgb(151, 243, 255);
+  border: 2px solid rgb(255, 255, 255);
+  background-color: rgb(146, 180, 184);
+}
