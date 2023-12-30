@@ -1,0 +1,206 @@
+/* google fonts */
+/* @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap'); */
+@import './google-fonts.css';
+
+ * {
+  margin: 0; 
+  padding: 0;
+  box-sizing: border-box;
+ }
+
+ body {
+  font-family: 'Oswald',sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #3d3d3d;
+  }
+
+  .container {
+    position: absolute;
+    display: flex;
+    transform-style: preserve-3d;
+    gap: 10px;
+    transform: rotateY(30deg) rotateX(10deg);
+  }
+
+  .text {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    transform-style: preserve-3d;
+    transition: 2.5s ease-in-out;
+    transition-delay: calc(0.25s * var(--j));
+  }
+.container.newyear .text {
+  transform: rotateX(calc(-360deg * 1));
+}
+
+.container.newyear .text:last-child {
+  transform: rotateX(calc(-630deg * 1));
+}
+  .text span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color: #fff;
+    font-size: 4em;
+    cursor: default;
+    background: linear-gradient(#434343, #535353);
+    transform-style: preserve-3d;
+    transform: rotateX(calc(90deg * var(--i))) translateZ(50px);
+  }
+
+  .text::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #373737;
+    transform-origin: left;
+    transform: rotateY(90deg) translateX(-50px);
+  }
+
+  .text:last-child span {
+    background: linear-gradient(#29c040, #32ed4e);
+  }
+
+  .text:last-child::before {
+    background-color: #11a728;
+  }
+
+  h2 {
+    position: absolute;
+    bottom: 50px;
+    color: #252525;
+    font-size: 2em;
+    transition: .5s;
+    cursor: pointer;
+  }
+
+  h2::after {
+    content: ' 2024';
+    transition: .5s;
+  }
+
+  h2.active {
+    color: #fff;
+    text-shadow: 0 0 20px #fff, 0 0 50px #fff;
+  }
+
+  
+  h2.active::after {
+    color: #32ed4e;
+    text-shadow: 0 0 20px #32ed4e, 0 0 50px #32ed4e;
+  }
+
+  .glowing {
+    position: relative;
+    width: 750px;
+    height: 750px;
+    pointer-events: none;
+    margin: -150px;
+    transform-origin: right;
+    animation: colorChange 5s infinite linear;
+  }
+
+  @keyframes colorChange {
+    0% {
+      filter: hue-rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    100% {
+      filter: hue-rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  .glowing:nth-child(even) {
+    transform-origin: left;
+  }
+
+  .glowing span {
+    position: absolute;
+    top: calc(80px * var(--i));
+    left: calc(80px * var(--i));
+    bottom: calc(80px * var(--i));
+    right: calc(80px * var(--i));
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+
+  .glowing span::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -8px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: #f00;
+  }
+
+  .glowing span:nth-child(3n + 1) {
+    animation: animate 10s alternate infinite;
+  }
+
+  .glowing span:nth-child(3n + 2) {
+    animation: animate-reverse 13s alternate infinite;
+  }
+
+  .glowing span:nth-child(3n + 3) {
+    animation: animate 8s alternate infinite;
+  }
+
+
+  @keyframes animate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes animate-reverse {
+    0% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  .glowing span:nth-child(3n + 1)::before {
+    background-color: rgba(134, 255, 0, 1);
+    box-shadow: 0 0 20px rgba(134, 255, 0, 1),
+    0 0 40px rgba(134, 255, 0, 1),
+    0 0 60px rgba(134, 255, 0, 1),
+    0 0 80px rgba(134, 255, 0, 1),
+    0 0 0 4px rgba(134, 255, 0, 0.1);
+  }
+
+  .glowing span:nth-child(3n + 2)::before {
+    background-color: rgba(255, 214, 0, 1);
+    box-shadow: 0 0 20px rgba(255, 214, 0, 1),
+    0 0 40px rgba(255, 214, 0, 1),
+    0 0 60px rgba(255, 214, 0, 1),
+    0 0 80px rgba(255, 214, 0, 1),
+    0 0 0 4px rgba(134, 255, 0, 0.1);
+  }
+
+  .glowing span:nth-child(3n + 3)::before {
+    background-color: rgba(0, 226, 255, 1);
+    box-shadow: 0 0 20px rgba(0, 226, 255, 1),
+    0 0 40px rgba(0, 226, 255, 1),
+    0 0 60px rgba(0, 226, 255, 1),
+    0 0 80px rgba(0, 226, 255, 1),
+    0 0 0 4px rgba(0, 266, 255, 0.1);
+  }

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2024 | Happy New Year</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="text" style="--j:0;">
+      <span style="--i:0;">2</span>
+      <span style="--i:1;">3</span>
+      <span style="--i:2;">4</span>
+      <span style="--i:3;">5</span>
+    </div>
+    
+    <div class="text" style="--j:1;">
+      <span style="--i:0;">0</span>
+      <span style="--i:1;">1</span>
+      <span style="--i:2;">2</span>
+      <span style="--i:3;">3</span>
+    </div>
+
+    <div class="text" style="--j:2;">
+      <span style="--i:0;">2</span>
+      <span style="--i:1;">3</span>
+      <span style="--i:2;">4</span>
+      <span style="--i:3;">5</span>
+    </div>
+
+    <div class="text" style="--j:3;">
+      <span style="--i:0;">3</span>
+      <span style="--i:1;">4</span>
+      <span style="--i:2;">3</span>
+      <span style="--i:3;">4</span>
+    </div>
+  </div>
+  <h2>Happy New Year</h2>
+  <div class="glowing">
+    <span style="--i:1;"></span>
+    <span style="--i:2;"></span>
+    <span style="--i:3;"></span>
+  </div>
+
+  <div class="glowing">
+    <span style="--i:1;"></span>
+    <span style="--i:2;"></span>
+    <span style="--i:3;"></span>
+  </div>
+
+  <div class="glowing">
+    <span style="--i:1;"></span>
+    <span style="--i:2;"></span>
+    <span style="--i:3;"></span>
+  </div>
+  <script>
+    const h2 = document.querySelector('h2'),
+   container = document.querySelector('.container')
+
+   h2.onclick = function(){ 
+    container.classList.toggle('newyear')
+    this.classList.toggle('active')
+   }
+  </script>
+</body>
+</html>
