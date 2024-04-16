@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>瀑布流布局Grid最佳实践</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --w: min(150px, 100%);
+        --s: 10px;
+      }
+
+      .operation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 220px;
+        padding: 12px;
+        box-sizing: border-box;
+        background: #60606090;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+
+      .waterfall {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, var(--w));
+        column-gap: var(--s);
+        justify-content: center;
+        padding: var(--s);
+        grid-auto-rows: var(--s);
+        counter-reset: count;
+      }
+
+      .waterfall > .item {
+        width: 100%;
+        padding: 12px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        background-color: #888;
+        color: white;
+        font-size: 2em;
+        counter-increment: count;
+      }
+
+      .waterfall > .item::before {
+        content: counter(count);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="operation">
+      <h2>Props</h2>
+
+      <p>
+        gap
+        <input id="gap-range" type="range" value="1" min="1" max="10" />
+      </p>
+
+      <p><button id="add">Add</button></p>
+
+      <p><button id="add100">Add 100 items</button></p>
+    </div>
+
+    <div class="waterfall"></div>
+
+    <script>
+      const waterfall = document.querySelector(".waterfall");
+      let gap = 10;
+
+      const createItem = (h) => {
+        // 582 -> 590
+        const e = document.createElement("div");
+        e.classList.add("item");
+        e.style.height = `${Math.ceil(h / gap) * gap}px`;
+        e.style.gridRow = `span ${Math.ceil(h / gap) + 1}`;
+        return e;
+      };
+
+      document.querySelector("#gap-range").addEventListener("input", (e) => {
+        gap = +e.target.value * 10;
+        waterfall.innerHTML = "";
+        waterfall.style.gridAutoRows = `${gap}px`;
+      });
+
+      document.querySelector("#add").addEventListener("click", () => {
+        const e = createItem(Math.ceil(50 + Math.random() * 500));
+        waterfall.appendChild(e);
+      });
+
+      document.querySelector("#add100").addEventListener("click", () => {
+        new Array(100)
+          .fill(0)
+          .map((v) => Math.ceil(50 + Math.random() * 500))
+          .map(createItem)
+          .forEach((e) => waterfall.appendChild(e));
+      });
+    </script>
+  </body>
+</html>
