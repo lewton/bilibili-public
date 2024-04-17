@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>范围滑块</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="range">
+        <div class="range__content">
+          <div class="range__slider">
+            <div class="range__slider-line" id="range-line"></div>
+          </div>
+
+          <div class="range__thumb" id="range-thumb">
+            <div class="range__value">
+              <span class="range__value-number" id="range-number">50</span>
+            </div>
+          </div>
+
+          <input
+            type="range"
+            class="range__input"
+            id="range-input"
+            min="0"
+            max="100"
+            value="50"
+            step="1"
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

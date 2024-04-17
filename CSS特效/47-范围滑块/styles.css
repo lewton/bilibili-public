@@ -1,0 +1,122 @@
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --gradient-color: linear-gradient(
+    95deg,
+    hsl(286, 97%, 57%) -7%,
+    hsl(256, 84%, 48%) 112%
+  );
+  --first-color-light: hsl(256, 64%, 88%);
+  --first-color-lighten: hsl(256, 58%, 94%);
+  --white-color: hsl(0, 0%, 100%);
+  --body-color: hsl(256, 100%, 98%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Montserrat", sans-serif;
+  --h1-font-size: 1.5rem;
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: var(--body-color);
+}
+
+/*=============== RANGE SLIDER ===============*/
+.container {
+  height: 100vh;
+  margin-inline: 1.5rem;
+  display: grid;
+  place-items: center;
+}
+
+/* Custom input range */
+.range {
+  height: 64px;
+  width: 100%;
+  max-width: 332px;
+  background-color: var(--first-color-light);
+  border-radius: 4rem;
+  box-shadow: 0 6px 16px hsla(256, 72%, 24%, 0.15);
+  padding-inline: 2.5rem;
+  display: grid;
+}
+
+.range__content {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.range__slider {
+  width: 100%;
+  height: 16px;
+  background-color: var(--first-color-lighten);
+  border-radius: 4rem;
+  box-shadow: 0 4px 12px hsla(256, 72%, 24%, 0.2);
+  overflow: hidden;
+}
+
+.range__slider-line {
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-color);
+  width: 0;
+}
+
+.range__thumb {
+  width: 32px;
+  height: 32px;
+  background-color: var(--first-color-lighten);
+  border-radius: 50%;
+  box-shadow: 0 0 12px hsla(256, 72%, 24%, 0.2);
+  position: absolute;
+}
+
+/* Value input range */
+.range__value {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-color);
+  position: absolute;
+  top: -82px;
+  left: -16px;
+  border-radius: 2rem 2rem 2rem 0.25rem;
+  transform: rotate(-45deg);
+  display: grid;
+  place-items: center;
+}
+
+.range__value-number {
+  transform: rotate(45deg);
+  color: var(--white-color);
+  font-size: var(--h1-font-size);
+}
+
+/* Default input range */
+.range__input {
+  appearance: none;
+  width: 100%;
+  height: 16px;
+  position: absolute;
+  opacity: 0;
+}
+
+.range__input::-webkit-slider-thumb {
+  appearance: none;
+  width: 32px;
+  height: 32px;
+}
+
+.range__input::-webkit-slider-thumb:hover {
+  cursor: pointer;
+}
