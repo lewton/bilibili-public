@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>瀑布流布局Grid最佳实践-图片懒加载</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --s: 10px;
+      }
+
+      .operation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 220px;
+        padding: 12px;
+        box-sizing: border-box;
+        background: #60606090;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        z-index: 99;
+      }
+
+      .waterfall {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 150px);
+        column-gap: var(--s);
+        justify-content: center;
+        padding: var(--s);
+        grid-auto-rows: var(--s);
+      }
+
+      .waterfall > .item {
+        width: 100%;
+        border-radius: 4px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="operation">
+      <h2>Props</h2>
+
+      <p><button id="add">Add</button></p>
+
+      <p><button id="add-all">Add All Image</button></p>
+    </div>
+
+    <div class="waterfall"></div>
+
+    <script>
+      const waterfall = document.querySelector(".waterfall");
+      const end = document.querySelector(".end");
+      const gap = 10;
+      const imageWidth = 150;
+
+      const images = [
+        "https://images.unsplash.com/photo-1573777058681-73b866833d90?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1510137600163-2729bc6959a6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=900&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1552566852-06d10a5050f4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1587041403375-ddce288f4c49?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1576759470820-77a440a4d45b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1580697895575-883f7c755346?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1586891622678-999a4419da34?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1581200459935-685903de7d62?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1584797318381-5958ca2e6b39?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1578264050450-ccc2f77796a1?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1557153921-10129d0f5b6c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1529093589387-b486dcc37c15?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1584049086295-9f2af90efbb4?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1572196663741-b91b8f045330?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1587421803669-b403d010dd80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1558288215-664da65499af?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1570458436416-b8fcccfe883f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+
+        "https://images.unsplash.com/photo-1592296109897-9c4d8e490e7a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1525104885119-8806dd94ad58?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1576532116216-84f6a0aedaf6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1533629947587-7b04aaa0e837?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1568386895623-74df8a7406f0?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+        "https://images.unsplash.com/photo-1518206245806-5c1f4d0c5a2a?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ",
+      ];
+
+      const createItem = async (src) => {
+        const e = document.createElement("div");
+        e.classList.add("item");
+        return new Promise((resolve, reject) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = () => {
+            // imageWidth / e.width = x / e.height => x = imageWidth * e.height / e.width
+            const h = (imageWidth * img.height) / img.width;
+            e.style.height = `${Math.ceil(h / gap) * gap}px`;
+            e.style.gridRow = `span ${Math.ceil(h / gap) + 1}`;
+            e.style.backgroundImage = `url(${src})`;
+            e.style.backgroundSize = "cover";
+            resolve(e);
+          };
+          img.onerror = () => {
+            reject("error");
+          };
+        });
+      };
+
+      document.querySelector("#add").addEventListener("click", () => {
+        if (images.length <= 0) {
+          return;
+        }
+        const e = createItem(images[Math.floor(Math.random() * images.length)]);
+        waterfall.appendChild(e);
+      });
+
+      document.querySelector("#add-all").addEventListener("click", () => {
+        for (let i = 0; i < images.length; i++) {
+          createItem(images[i]).then((e) => waterfall.appendChild(e));
+        }
+      });
+    </script>
+  </body>
+</html>
